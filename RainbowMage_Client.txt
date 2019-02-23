@@ -1,0 +1,21 @@
+local Player = game.Players.LocalPlayer
+local Character = Player.Character
+local Mouse = Player:GetMouse()
+local KeyDown = Character:WaitForChild("KeyDown")
+local KeyUp = Character:WaitForChild("KeyUp")
+Mouse.Button1Down:connect(function()
+KeyDown:FireServer(Mouse.Hit,Mouse.Target," ")
+end)
+Mouse.KeyDown:connect(function(key)
+if key ~= " " then
+KeyDown:FireServer(Mouse.Hit,Mouse.Target,key)
+end
+end)
+Mouse.Button1Up:connect(function()
+KeyUp:FireServer(" ")
+end)
+Mouse.KeyUp:connect(function(key)
+if key ~= " " then
+KeyUp:FireServer(key)
+end
+end)
