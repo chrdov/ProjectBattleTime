@@ -1,0 +1,338 @@
+local Player = game.Players:GetPlayerFromCharacter(script.Parent)
+if Player then
+local Character = Player.Character
+local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+local Shirt = Character:FindFirstChildOfClass("Shirt") or Instance.new("Shirt",Character)
+local Pants = Character:FindFirstChildOfClass("Pants") or Instance.new("Pants",Character)
+local BodyColors = Character:FindFirstChildOfClass("BodyColors") or Instance.new("BodyColors",Character)
+if BodyColors then
+	BodyColors.TorsoColor3 = BodyColors.HeadColor3
+	BodyColors.LeftArmColor3 = BodyColors.HeadColor3
+	BodyColors.RightArmColor3 = BodyColors.HeadColor3
+	BodyColors.LeftLegColor3 = BodyColors.HeadColor3
+	BodyColors.RightLegColor3 = BodyColors.HeadColor3
+end
+if Shirt ~= nil then
+Shirt.ShirtTemplate = "rbxassetid://2351141242"
+end
+if Pants ~= nil then
+Pants.PantsTemplate = "rbxassetid://2356587852"
+end
+Character.Animate.Disabled = true
+local welds = {}
+welds.torsoWeld = Instance.new("Weld",Character:WaitForChild("HumanoidRootPart"))
+welds.leftLegWeld = Instance.new("Weld",Character:WaitForChild("Torso"))
+welds.rightLegWeld = Instance.new("Weld",Character:FindFirstChild("Torso"))
+welds.leftArmWeld = Instance.new("Weld",Character:FindFirstChild("Torso"))
+welds.rightArmWeld = Instance.new("Weld",Character:FindFirstChild("Torso"))
+welds.headWeld = Instance.new("Weld",Character:FindFirstChild("Torso"))
+welds.headWeld.Part0 = Character:FindFirstChild("Torso")
+welds.headWeld.Part1 = Character:WaitForChild("Head")
+welds.headWeld.C0 = CFrame.new(Vector3.new(0,1.5,0))
+welds.torsoWeld.Part0 = Character:FindFirstChild("HumanoidRootPart")
+welds.torsoWeld.Part1 = Character:FindFirstChild("Torso")
+welds.leftLegWeld.Part0 = Character:FindFirstChild("Torso")
+welds.leftLegWeld.Part1 = Character:WaitForChild("Left Leg")
+welds.rightLegWeld.Part0 = Character:FindFirstChild("Torso")
+welds.rightLegWeld.Part1 = Character:WaitForChild("Right Leg")
+welds.leftArmWeld.Part0 = Character:FindFirstChild("Torso")
+welds.leftArmWeld.Part1 = Character:WaitForChild("Left Arm")
+welds.rightArmWeld.Part0 = Character:FindFirstChild("Torso")
+welds.rightArmWeld.Part1 = Character:WaitForChild("Right Arm")
+welds.leftLegWeld.C0 = CFrame.new(Vector3.new(-0.5,-1,0))
+welds.rightLegWeld.C0 = CFrame.new(Vector3.new(0.5,-1,0))
+welds.leftArmWeld.C0 = CFrame.new(Vector3.new(-1.5,0.5,0))
+welds.rightArmWeld.C0 = CFrame.new(Vector3.new(1.5,0.5,0))
+welds.leftLegWeld.C1 = CFrame.new(Vector3.new(0,1,0))
+welds.rightLegWeld.C1 = CFrame.new(Vector3.new(0,1,0))
+welds.leftArmWeld.C1 = CFrame.new(Vector3.new(0,0.5,0))
+welds.rightArmWeld.C1 = CFrame.new(Vector3.new(0,0.5,0))
+local defaultC0 = {}
+local defaultC1 = {}
+local targetC0 = {}
+local targetC1 = {}
+defaultC0.headWeld = welds.headWeld.C0
+defaultC0.torsoWeld = welds.torsoWeld.C0
+defaultC0.leftArmWeld = welds.leftArmWeld.C0
+defaultC0.rightArmWeld = welds.rightArmWeld.C0
+defaultC0.leftLegWeld = welds.leftLegWeld.C0
+defaultC0.rightLegWeld = welds.rightLegWeld.C0
+defaultC1.headWeld = welds.headWeld.C1
+defaultC1.torsoWeld = welds.torsoWeld.C1
+defaultC1.leftArmWeld = welds.leftArmWeld.C1
+defaultC1.rightArmWeld = welds.rightArmWeld.C1
+defaultC1.leftLegWeld = welds.leftLegWeld.C1
+defaultC1.rightLegWeld = welds.rightLegWeld.C1
+targetC0.headWeld = CFrame.new(0,0,0)
+targetC0.torsoWeld = CFrame.new(0,0,0)
+targetC0.leftArmWeld = CFrame.new(0,0,0)
+targetC0.rightArmWeld = CFrame.new(0,0,0)
+targetC0.leftLegWeld = CFrame.new(0,0,0)
+targetC0.rightLegWeld = CFrame.new(0,0,0)
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+local debounce = false
+local alpha = 0.9
+local curColor = 1
+local myColors = {}
+myColors[1] = Color3.new(1,1,1)
+myColors[2] = Color3.new(1,0,0)
+myColors[3] = Color3.new(1,1,0)
+myColors[4] = Color3.new(0,1,0)
+myColors[5] = Color3.new(0,1,1)
+myColors[6] = Color3.new(0,0,1)
+myColors[7] = Color3.new(1,0,1)
+local targetColor3 = myColors[curColor]
+local ProjectileTemp = Instance.new("Part",game.ServerStorage)
+ProjectileTemp.CanCollide = false
+ProjectileTemp.Size = Vector3.new(2,2,2)
+ProjectileTemp.Position = Vector3.new(0,16,0)
+ProjectileTemp.Shape = "Ball"
+ProjectileTemp.Material = "SmoothPlastic"
+ProjectileTemp.Color = targetColor3
+if Shirt ~= nil then
+Shirt.Color3 = ProjectileTemp.Color
+end
+if Pants ~= nil then
+Pants.Color3 = ProjectileTemp.Color
+end
+Instance.new("BodyVelocity",ProjectileTemp).MaxForce = Vector3.new(math.huge,math.huge,math.huge)
+Humanoid.JumpPower = 0
+Humanoid.WalkSpeed = 24
+local heldKeys = {}
+local function onKeyDown(Plr,Mouse,Target,key)
+if Plr ~= Player then return end
+heldKeys[key] = true
+if key == " " then
+if debounce then return end
+alpha = 0.3
+targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
+targetC0.leftArmWeld = CFrame.Angles(0,0,math.rad(-10))
+debounce = true
+Humanoid.WalkSpeed = 0
+targetC0.rightArmWeld = CFrame.Angles(math.rad(120),0,math.rad(10))
+targetC0.headWeld = CFrame.Angles(0,math.rad(45),0)
+targetC0.torsoWeld = CFrame.Angles(0,math.rad(-45),0)
+local damage = 10
+wait(0.2)
+if heldKeys[key] then
+alpha = 0.1
+repeat
+damage = damage + 2
+wait(0.1)
+until (heldKeys[key] == nil) or (damage >= 50)
+end
+local clrNumber = curColor
+local Projectile = ProjectileTemp:Clone()
+alpha = 0.9
+targetC0.rightArmWeld = CFrame.Angles(math.rad(60),0,math.rad(10))
+targetC0.headWeld = CFrame.Angles(0,math.rad(-45),0)
+targetC0.torsoWeld = CFrame.Angles(0,math.rad(45),0)
+Projectile.Touched:connect(function(Hit)
+if Hit.Parent ~= nil then
+if Hit.Parent ~= Character and Hit.Parent ~= game.Workspace and Hit.Parent:IsA("Accessory") == false then
+local TargetHumanoid = Hit.Parent:FindFirstChildOfClass("Humanoid")
+if TargetHumanoid ~= nil then
+if clrNumber == 1 then
+if TargetHumanoid.Health > 0 then
+TargetHumanoid:TakeDamage(damage)
+end
+end
+if clrNumber == 2 then
+if TargetHumanoid.Health > 0 then
+TargetHumanoid.Health = TargetHumanoid.Health - (damage * 2)
+TargetHumanoid.MaxHealth = TargetHumanoid.MaxHealth - damage
+end
+end
+if clrNumber == 3 then
+if TargetHumanoid.Health > 0 then
+local Explosion = Instance.new("Explosion")
+TargetHumanoid.Health = TargetHumanoid.Health - damage
+Explosion.BlastRadius = damage
+Explosion.Position = Hit.Position
+Explosion.DestroyJointRadiusPercent = 0
+Explosion.Hit:connect(function(Part,Distance)
+if Part.Parent ~= Character then
+if (Part.Name == "HumanoidRootPart" or (Part.Parent:FindFirstChild("HumanoidRootPart") == nil and Part.Name == "Torso")) then
+local factor = 1 - (Distance / Explosion.BlastRadius)
+local OtherHumanoid = Part.Parent:FindFirstChildOfClass("Humanoid")
+if OtherHumanoid ~= TargetHumanoid then
+OtherHumanoid.Health = OtherHumanoid.Health - (damage * factor)
+end
+end
+end
+end)
+Explosion.Parent = game.Workspace
+end
+end
+if clrNumber == 4 then
+if TargetHumanoid.Health > 0 then
+TargetHumanoid.Health = TargetHumanoid.Health + damage
+end
+end
+if clrNumber == 5 then
+if TargetHumanoid.Health > 0 then
+spawn(function()
+local WS = TargetHumanoid.WalkSpeed
+local JP = TargetHumanoid.JumpPower
+TargetHumanoid.WalkSpeed = 0
+TargetHumanoid.JumpPower = 0
+wait(damage/5)
+TargetHumanoid.WalkSpeed = WS
+TargetHumanoid.JumpPower = JP
+end)
+end
+end
+if clrNumber == 6 then
+if TargetHumanoid.Health > 0 then
+spawn(function()
+local WS = TargetHumanoid.WalkSpeed
+local JP = TargetHumanoid.JumpPower
+TargetHumanoid.WalkSpeed = WS / ((damage / 10) * 2)
+TargetHumanoid.JumpPower = JP / ((damage / 10) * 2)
+wait(damage/5)
+TargetHumanoid.WalkSpeed = WS
+TargetHumanoid.JumpPower = JP
+end)
+end
+end
+if clrNumber == 7 then
+if TargetHumanoid.Health > 0 then
+spawn(function()
+for x = 1,10 do
+TargetHumanoid.Health = TargetHumanoid.Health - (damage / 10)
+wait((damage/5)/10)
+end
+end)
+end
+end
+if clrNumber ~= 1 then
+spawn(function()
+local CharClrs = {}
+local Clr = Projectile.Color
+for _,Part in pairs(Hit.Parent:GetChildren()) do
+if Part:IsA("BasePart") then
+CharClrs[Part.Name] = Part.Color
+Part.Color = Clr
+end
+end
+if clrNumber == 5 or clrNumber == 6 or clrNumber == 7 then
+wait(damage/5)
+else
+wait(0.125)
+end
+if Hit.Parent ~= nil then
+for _,Part in pairs(Hit.Parent:GetChildren()) do
+if Part:IsA("BasePart") then
+Part.Color = CharClrs[Part.Name]
+end
+end
+end
+end)
+end
+end
+Projectile:Destroy()
+end
+if Hit.Parent == game.Workspace and Hit.Parent:IsA("Accessory") == false then
+Projectile:Destroy()
+end
+end
+end)
+Projectile.Parent = game.Workspace
+Projectile.Position = Character.HumanoidRootPart.Position + Character.HumanoidRootPart.CFrame.LookVector
+Projectile.BodyVelocity.Velocity = ((Mouse.Position - Projectile.Position).Unit * (60 - damage)) * 4
+game:GetService("Debris"):AddItem(Projectile,5)
+if damage >= 50 then
+wait(1)
+else
+wait(0.1)
+end
+Humanoid.WalkSpeed = 24
+debounce = false
+elseif key == "e" then
+curColor = curColor + 1
+if curColor > 7 then
+curColor = 1
+end
+targetColor3 = myColors[curColor]
+ProjectileTemp.Color = targetColor3
+if Shirt ~= nil then
+Shirt.Color3 = ProjectileTemp.Color
+end
+if Pants ~= nil then
+Pants.Color3 = ProjectileTemp.Color
+end
+elseif key == "q" then
+curColor = curColor - 1
+if curColor < 1 then
+curColor = 7
+end
+targetColor3 = myColors[curColor]
+ProjectileTemp.Color = targetColor3
+if Shirt ~= nil then
+Shirt.Color3 = ProjectileTemp.Color
+end
+if Pants ~= nil then
+Pants.Color3 = ProjectileTemp.Color
+end
+end
+end
+local function onKeyUp(Plr,key)
+if Plr ~= Player then return end
+heldKeys[key] = nil
+end
+local KeyDown = Instance.new("RemoteEvent",Character)
+KeyDown.Name = "KeyDown"
+KeyDown.OnServerEvent:connect(onKeyDown)
+local KeyUp = Instance.new("RemoteEvent",Character)
+KeyUp.Name = "KeyUp"
+KeyUp.OnServerEvent:connect(onKeyUp)
+spawn(function()
+while Humanoid.Health > 0 do
+for k,_ in pairs(welds) do
+local aC0 = defaultC0[k] * targetC0[k]
+local aC1 = defaultC1[k] * targetC1[k]
+local bC0 = welds[k].C0
+local bC1 = welds[k].C1
+welds[k].C0 = bC0:Lerp(aC0,alpha)
+welds[k].C1 = bC1:Lerp(aC1,alpha)
+end
+if not debounce then
+alpha = 0.9
+if Humanoid.MoveDirection.Magnitude > 0 then
+targetC0.headWeld = CFrame.new(0,0,0)
+targetC0.torsoWeld = CFrame.new(0,0,0)
+targetC0.leftArmWeld = CFrame.Angles(math.rad(-40) * math.sin(game.Workspace.DistributedGameTime * 9 * (Humanoid.WalkSpeed / 16)) * Humanoid.MoveDirection.Magnitude,0,0)
+targetC0.rightArmWeld = CFrame.Angles(math.rad(40) * math.sin(game.Workspace.DistributedGameTime * 9 * (Humanoid.WalkSpeed / 16)) * Humanoid.MoveDirection.Magnitude,0,0)
+targetC0.leftLegWeld = CFrame.Angles(math.rad(40) * math.sin(game.Workspace.DistributedGameTime * 9 * (Humanoid.WalkSpeed / 16)) * Humanoid.MoveDirection.Magnitude,0,0)
+targetC0.rightLegWeld = CFrame.Angles(math.rad(-40) * math.sin(game.Workspace.DistributedGameTime * 9 * (Humanoid.WalkSpeed / 16)) * Humanoid.MoveDirection.Magnitude,0,0)
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+else
+targetC0.headWeld = CFrame.Angles(0,math.rad(-45),0)
+targetC0.torsoWeld = CFrame.Angles(0,math.rad(45),0)
+targetC0.leftArmWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightArmWeld = CFrame.Angles(0,0,math.rad(10))
+targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+end
+end
+wait(1/20)
+end
+end)
+end
