@@ -1,0 +1,295 @@
+function GetNearbyPlayers(Player1,distance)
+	local Targets = {}
+	for _,Player2 in pairs(game.Players:GetPlayers()) do
+		if Player1 ~= Player2 and Player1 ~= nil then
+			if Player2.Character ~= nil and Player1.Character ~= nil then
+				if (Player2.Character.PrimaryPart.Position - Player1.Character.PrimaryPart.Position).Magnitude <= distance then
+					table.insert(Targets,#Targets + 1,Player2)
+				end
+			end
+		end
+	end
+	return Targets
+end
+local Player = game.Players:GetPlayerFromCharacter(script.Parent)
+if Player then
+local Character = Player.Character
+local Cash = Instance.new("DoubleConstrainedValue",Character)
+Cash.Name = "Score"
+Cash.MinValue = 0
+Cash.MaxValue = 9999
+local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+local Shirt = Character:FindFirstChildOfClass("Shirt") or Instance.new("Shirt",Character)
+local Pants = Character:FindFirstChildOfClass("Pants") or Instance.new("Pants",Character)
+local BodyColors = Character:FindFirstChildOfClass("BodyColors") or Instance.new("BodyColors",Character)
+if BodyColors then
+	BodyColors.TorsoColor3 = BodyColors.HeadColor3
+	BodyColors.LeftArmColor3 = BodyColors.HeadColor3
+	BodyColors.RightArmColor3 = BodyColors.HeadColor3
+	BodyColors.LeftLegColor3 = BodyColors.HeadColor3
+	BodyColors.RightLegColor3 = BodyColors.HeadColor3
+end
+if Shirt ~= nil then
+	Shirt.ShirtTemplate = "rbxassetid://30151576"
+end
+if Pants ~= nil then
+	Pants.PantsTemplate = "rbxassetid://30156496"
+end
+Character.Animate.Disabled = true
+Character.Health.Disabled = true
+local welds = {}
+welds.torsoWeld = Instance.new("Weld",Character:WaitForChild("HumanoidRootPart"))
+welds.leftLegWeld = Instance.new("Weld",Character:WaitForChild("Torso"))
+welds.rightLegWeld = Instance.new("Weld",Character:FindFirstChild("Torso"))
+welds.leftArmWeld = Instance.new("Weld",Character:FindFirstChild("Torso"))
+welds.rightArmWeld = Instance.new("Weld",Character:FindFirstChild("Torso"))
+welds.headWeld = Instance.new("Weld",Character:FindFirstChild("Torso"))
+welds.headWeld.Part0 = Character:FindFirstChild("Torso")
+welds.headWeld.Part1 = Character:WaitForChild("Head")
+welds.headWeld.C0 = CFrame.new(Vector3.new(0,1.5,0))
+welds.torsoWeld.Part0 = Character:FindFirstChild("HumanoidRootPart")
+welds.torsoWeld.Part1 = Character:FindFirstChild("Torso")
+welds.leftLegWeld.Part0 = Character:FindFirstChild("Torso")
+welds.leftLegWeld.Part1 = Character:WaitForChild("Left Leg")
+welds.rightLegWeld.Part0 = Character:FindFirstChild("Torso")
+welds.rightLegWeld.Part1 = Character:WaitForChild("Right Leg")
+welds.leftArmWeld.Part0 = Character:FindFirstChild("Torso")
+welds.leftArmWeld.Part1 = Character:WaitForChild("Left Arm")
+welds.rightArmWeld.Part0 = Character:FindFirstChild("Torso")
+welds.rightArmWeld.Part1 = Character:WaitForChild("Right Arm")
+welds.leftLegWeld.C0 = CFrame.new(Vector3.new(-0.5,-1,0))
+welds.rightLegWeld.C0 = CFrame.new(Vector3.new(0.5,-1,0))
+welds.leftArmWeld.C0 = CFrame.new(Vector3.new(-1.5,0.5,0))
+welds.rightArmWeld.C0 = CFrame.new(Vector3.new(1.5,0.5,0))
+welds.leftLegWeld.C1 = CFrame.new(Vector3.new(0,1,0))
+welds.rightLegWeld.C1 = CFrame.new(Vector3.new(0,1,0))
+welds.leftArmWeld.C1 = CFrame.new(Vector3.new(0,0.5,0))
+welds.rightArmWeld.C1 = CFrame.new(Vector3.new(0,0.5,0))
+local defaultC0 = {}
+local defaultC1 = {}
+local targetC0 = {}
+local targetC1 = {}
+defaultC0.headWeld = welds.headWeld.C0
+defaultC0.torsoWeld = welds.torsoWeld.C0
+defaultC0.leftArmWeld = welds.leftArmWeld.C0
+defaultC0.rightArmWeld = welds.rightArmWeld.C0
+defaultC0.leftLegWeld = welds.leftLegWeld.C0
+defaultC0.rightLegWeld = welds.rightLegWeld.C0
+defaultC1.headWeld = welds.headWeld.C1
+defaultC1.torsoWeld = welds.torsoWeld.C1
+defaultC1.leftArmWeld = welds.leftArmWeld.C1
+defaultC1.rightArmWeld = welds.rightArmWeld.C1
+defaultC1.leftLegWeld = welds.leftLegWeld.C1
+defaultC1.rightLegWeld = welds.rightLegWeld.C1
+targetC0.headWeld = CFrame.new(0,0,0)
+targetC0.torsoWeld = CFrame.new(0,0,0)
+targetC0.leftArmWeld = CFrame.new(0,0,0)
+targetC0.rightArmWeld = CFrame.new(0,0,0)
+targetC0.leftLegWeld = CFrame.new(0,0,0)
+targetC0.rightLegWeld = CFrame.new(0,0,0)
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+local defaultC0 = {}
+local defaultC1 = {}
+local targetC0 = {}
+local targetC1 = {}
+defaultC0.headWeld = welds.headWeld.C0
+defaultC0.torsoWeld = welds.torsoWeld.C0
+defaultC0.leftArmWeld = welds.leftArmWeld.C0
+defaultC0.rightArmWeld = welds.rightArmWeld.C0
+defaultC0.leftLegWeld = welds.leftLegWeld.C0
+defaultC0.rightLegWeld = welds.rightLegWeld.C0
+defaultC1.headWeld = welds.headWeld.C1
+defaultC1.torsoWeld = welds.torsoWeld.C1
+defaultC1.leftArmWeld = welds.leftArmWeld.C1
+defaultC1.rightArmWeld = welds.rightArmWeld.C1
+defaultC1.leftLegWeld = welds.leftLegWeld.C1
+defaultC1.rightLegWeld = welds.rightLegWeld.C1
+targetC0.headWeld = CFrame.new(0,0,0)
+targetC0.torsoWeld = CFrame.new(0,0,0)
+targetC0.leftArmWeld = CFrame.new(0,0,0)
+targetC0.rightArmWeld = CFrame.new(0,0,0)
+targetC0.leftLegWeld = CFrame.new(0,0,0)
+targetC0.rightLegWeld = CFrame.new(0,0,0)
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+local alpha = 0.9
+local debounce = false
+local heldKeys = {}
+Humanoid.JumpPower = 0
+Humanoid.WalkSpeed = 32
+local t = os.time()
+local function onKeyDown(Plr,Mouse,Target,key)
+if Plr ~= Player then return end
+heldKeys[key] = true
+if debounce then return end
+local Player1 = Player
+local Targets = GetNearbyPlayers(Player1,5)
+if key == "mouseLeft" then
+debounce = true
+targetC0.headWeld = CFrame.Angles(0,math.rad(80),0)
+targetC0.torsoWeld = CFrame.Angles(0,math.rad(-80),0)
+targetC0.leftArmWeld = CFrame.Angles(0,0,math.rad(-120))
+targetC0.rightArmWeld = CFrame.Angles(math.rad(60),0,math.rad(-35))
+targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+for _,Player2 in pairs(Targets) do
+if Player2.Character.Humanoid.Health > 0 then
+Player2.Character.Humanoid:TakeDamage(10 + (Cash.Value / 100))
+Cash.Value = Cash.Value + 100
+end
+end
+wait(0.15)
+targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+targetC0.headWeld = CFrame.Angles(0,math.rad(45),0)
+targetC0.torsoWeld = CFrame.Angles(0,math.rad(-45),0)
+targetC0.leftArmWeld = CFrame.Angles(math.rad(120),0,math.rad(30))
+targetC0.rightArmWeld = CFrame.Angles(math.rad(60),0,math.rad(-30))
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+wait(0.05)
+debounce = false
+elseif key == "mouseRight" then
+debounce = true
+targetC0.headWeld = CFrame.Angles(0,math.rad(-80),0)
+targetC0.torsoWeld = CFrame.Angles(0,math.rad(80),0)
+targetC0.leftArmWeld = CFrame.Angles(math.rad(60),0,math.rad(35))
+targetC0.rightArmWeld = CFrame.Angles(0,0,math.rad(120))
+targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+for _,Player2 in pairs(Targets) do
+if Player2.Character.Humanoid.Health > 0 then
+Player2.Character.Humanoid:TakeDamage(10 + (Cash.Value / 100))
+Cash.Value = Cash.Value + 100
+end
+end
+wait(0.15)
+targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+targetC0.headWeld = CFrame.Angles(0,math.rad(45),0)
+targetC0.torsoWeld = CFrame.Angles(0,math.rad(-45),0)
+targetC0.leftArmWeld = CFrame.Angles(math.rad(120),0,math.rad(30))
+targetC0.rightArmWeld = CFrame.Angles(math.rad(60),0,math.rad(-30))
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+wait(0.05)
+debounce = false
+elseif key == " " then
+debounce = true
+Humanoid.MaxHealth = Humanoid.MaxHealth * 2
+Humanoid.Health = Humanoid.Health * 2
+local newHealth = Humanoid.Health
+local oldHealth = Humanoid.Health
+local damage = oldHealth - newHealth
+targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+targetC0.headWeld = CFrame.Angles(0,0,0)
+targetC0.torsoWeld = CFrame.Angles(0,0,0)
+targetC0.leftArmWeld = CFrame.new(0.5,0,-0.5) * CFrame.Angles(math.rad(175),0,math.rad(25))
+targetC0.rightArmWeld = CFrame.new(-0.5,0,-0.5) * CFrame.Angles(math.rad(175),0,math.rad(-25))
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+Humanoid.WalkSpeed = Humanoid.WalkSpeed / 16
+repeat
+newHealth = Humanoid.Health
+damage = oldHealth - newHealth
+if damage > 0 then
+Cash.Value = Cash.Value + (damage * 10)
+end
+wait()
+oldHealth = Humanoid.Health
+until not heldKeys[key]
+Humanoid.WalkSpeed = Humanoid.WalkSpeed * 16
+Humanoid.Health = Humanoid.Health / 2
+Humanoid.MaxHealth = Humanoid.MaxHealth / 2
+debounce = false
+end
+end
+local function onKeyUp(Plr,key)
+if Plr ~= Player then return end
+heldKeys[key] = nil
+end
+local KeyDown = Instance.new("RemoteEvent",Character)
+KeyDown.Name = "KeyDown"
+KeyDown.OnServerEvent:connect(onKeyDown)
+local KeyUp = Instance.new("RemoteEvent",Character)
+KeyUp.Name = "KeyUp"
+KeyUp.OnServerEvent:connect(onKeyUp)
+spawn(function()
+while Humanoid.Health > 0 do
+for k,_ in pairs(welds) do
+local aC0 = defaultC0[k] * targetC0[k]
+local aC1 = defaultC1[k] * targetC1[k]
+local bC0 = welds[k].C0
+local bC1 = welds[k].C1
+welds[k].C0 = bC0:Lerp(aC0,alpha)
+welds[k].C1 = bC1:Lerp(aC1,alpha)
+end
+if Humanoid.MoveDirection.Magnitude > 0 then
+if not debounce then
+targetC0.leftLegWeld = CFrame.Angles(0,0,(math.rad(-5) * math.sin(game.Workspace.DistributedGameTime * 9 * (Humanoid.WalkSpeed / 16)) * Humanoid.MoveDirection.Magnitude) + math.rad(-5))
+targetC0.rightLegWeld = CFrame.Angles(0,0,(math.rad(5) * math.sin(game.Workspace.DistributedGameTime * 9 * (Humanoid.WalkSpeed / 16)) * Humanoid.MoveDirection.Magnitude) + math.rad(5))
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+targetC0.headWeld = CFrame.Angles(0,math.rad(45),0)
+targetC0.torsoWeld = CFrame.Angles(0,math.rad(-45),0)
+targetC0.leftArmWeld = CFrame.Angles(math.rad(120),0,(math.rad(5) * math.sin(game.Workspace.DistributedGameTime * 9 * (Humanoid.WalkSpeed / 16)) * Humanoid.MoveDirection.Magnitude) + math.rad(25))
+targetC0.rightArmWeld = CFrame.Angles(math.rad(60),0,(math.rad(-5) * math.sin(game.Workspace.DistributedGameTime * 9 * (Humanoid.WalkSpeed / 16)) * Humanoid.MoveDirection.Magnitude) + math.rad(-25))
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+end
+else
+if not debounce then
+targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+targetC0.headWeld = CFrame.Angles(0,math.rad(45),0)
+targetC0.torsoWeld = CFrame.Angles(0,math.rad(-45),0)
+targetC0.leftArmWeld = CFrame.Angles(math.rad(120),0,math.rad(30))
+targetC0.rightArmWeld = CFrame.Angles(math.rad(60),0,math.rad(-30))
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+end
+end
+wait(1/20)
+end
+end)
+end
