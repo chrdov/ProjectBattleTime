@@ -3,6 +3,6 @@
 
 There are a few planned classes for this game:
 -	Rainbow Mage (Finished)
--	Retro Gamer (Next Up)
+-	Retro Gamer (Finished)
 -	Business Formal Person (In Progress)
 -	Sword Fighter (Not Started Yet)
