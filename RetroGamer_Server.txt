@@ -131,8 +131,7 @@ local function onKeyDown(Plr,Mouse,Target,key)
 if Plr ~= Player then return end
 heldKeys[key] = true
 if debounce then return end
-local Player1 = Player
-local Targets = GetNearbyPlayers(Player1,5)
+local Target = findNearestTorso(Character.HumanoidRootPart.Position,dist)
 if key == "mouseLeft" then
 debounce = true
 targetC0.headWeld = CFrame.Angles(0,math.rad(80),0)
@@ -147,10 +146,10 @@ targetC1.leftArmWeld = CFrame.new(0,0,0)
 targetC1.rightArmWeld = CFrame.new(0,0,0)
 targetC1.leftLegWeld = CFrame.new(0,0,0)
 targetC1.rightLegWeld = CFrame.new(0,0,0)
-for _,Player2 in pairs(Targets) do
-if Player2.Character.Humanoid.Health > 0 then
-Player2.Character.Humanoid:TakeDamage(10 + (Cash.Value / 100))
-Cash.Value = Cash.Value + 100
+if Target ~= nil then
+if Target.Humanoid.Health > 0 then
+Target.Humanoid:TakeDamage(10)
+Cash.Value = Cash.Value + 40
 end
 end
 wait(0.15)
@@ -182,10 +181,10 @@ targetC1.leftArmWeld = CFrame.new(0,0,0)
 targetC1.rightArmWeld = CFrame.new(0,0,0)
 targetC1.leftLegWeld = CFrame.new(0,0,0)
 targetC1.rightLegWeld = CFrame.new(0,0,0)
-for _,Player2 in pairs(Targets) do
-if Player2.Character.Humanoid.Health > 0 then
-Player2.Character.Humanoid:TakeDamage(10 + (Cash.Value / 100))
-Cash.Value = Cash.Value + 100
+if Target ~= nil then
+if Target.Humanoid.Health > 0 then
+Target.Humanoid:TakeDamage(10)
+Cash.Value = Cash.Value + 40
 end
 end
 wait(0.15)
