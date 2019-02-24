@@ -1,15 +1,25 @@
-function GetNearbyPlayers(Player1,distance)
-	local Targets = {}
-	for _,Player2 in pairs(game.Players:GetPlayers()) do
-		if Player1 ~= Player2 and Player1 ~= nil then
-			if Player2.Character ~= nil and Player1.Character ~= nil then
-				if (Player2.Character.PrimaryPart.Position - Player1.Character.PrimaryPart.Position).Magnitude <= distance then
-					table.insert(Targets,#Targets + 1,Player2)
+function findNearestTorso(pos,dist)
+	local list = game.Workspace:children()
+	local torso = nil
+	local temp = nil
+	local human = nil
+	local temp2 = nil
+	for x = 1, #list do
+		temp2 = list[x]
+		if (temp2.className == "Model") and (temp2 ~= script.Parent) then
+			temp = temp2:findFirstChild("HumanoidRootPart")
+			human = temp2:findFirstChild("Humanoid")
+			if (temp ~= nil) and (human ~= nil) and (human.Health > 0) then
+				if (temp.Position - pos).magnitude < dist then
+					torso = temp
+					dist = (temp.Position - pos).magnitude
 				end
 			end
 		end
 	end
-	return Targets
+	if torso ~= nil then
+		return torso.Parent
+	end
 end
 local Player = game.Players:GetPlayerFromCharacter(script.Parent) or game.Players:WaitForChild("CBDove4")
 if Player then
@@ -131,8 +141,7 @@ local function onKeyDown(Plr,Mouse,Target,key)
 if Plr ~= Player then return end
 heldKeys[key] = true
 if debounce then return end
-local Player1 = Player
-local Targets = GetNearbyPlayers(Player1,5)
+local Target = findNearestTorso(Character.HumanoidRootPart.Position,dist)
 if key == "mouseLeft" then
 debounce = true
 targetC0.headWeld = CFrame.Angles(0,math.rad(80),0)
@@ -147,9 +156,9 @@ targetC1.leftArmWeld = CFrame.new(0,0,0)
 targetC1.rightArmWeld = CFrame.new(0,0,0)
 targetC1.leftLegWeld = CFrame.new(0,0,0)
 targetC1.rightLegWeld = CFrame.new(0,0,0)
-for _,Player2 in pairs(Targets) do
-if Player2.Character.Humanoid.Health > 0 then
-Player2.Character.Humanoid:TakeDamage(10)
+if Target ~= nil then
+if Target.Humanoid.Health > 0 then
+Target.Humanoid:TakeDamage(10)
 Cash.Value = Cash.Value + 40
 end
 end
@@ -182,9 +191,9 @@ targetC1.leftArmWeld = CFrame.new(0,0,0)
 targetC1.rightArmWeld = CFrame.new(0,0,0)
 targetC1.leftLegWeld = CFrame.new(0,0,0)
 targetC1.rightLegWeld = CFrame.new(0,0,0)
-for _,Player2 in pairs(Targets) do
-if Player2.Character.Humanoid.Health > 0 then
-Player2.Character.Humanoid:TakeDamage(10)
+if Target ~= nil then
+if Target.Humanoid.Health > 0 then
+Target.Humanoid:TakeDamage(10)
 Cash.Value = Cash.Value + 40
 end
 end
