@@ -9,7 +9,7 @@ function findNearestTorso(pos,dist)
 	for x = 1, #list do
 		temp2 = list[x]
 		if (temp2.className == "Model") and (temp2 ~= Player.Character) then
-			temp = temp2:findFirstChild("HumanoidRootPart")
+			temp = temp2:findFirstChild("HumanoidRootPart") or temp2:findFirstChild("Torso")
 			human = temp2:findFirstChild("Humanoid")
 			if (temp ~= nil) and (human ~= nil) and (human.Health > 0) then
 				if (temp.Position - pos).magnitude < dist then
