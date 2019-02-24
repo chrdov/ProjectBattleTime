@@ -11,7 +11,7 @@ function GetNearbyPlayers(Player1,distance)
 	end
 	return Targets
 end
-local Player = game.Players:GetPlayerFromCharacter(script.Parent)
+local Player = game.Players:GetPlayerFromCharacter(script.Parent) or game.Players:WaitForChild("CBDove4")
 if Player then
 local Character = Player.Character
 local Cash = Instance.new("DoubleConstrainedValue",Character)
