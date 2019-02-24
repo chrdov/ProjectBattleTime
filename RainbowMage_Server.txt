@@ -107,7 +107,7 @@ local heldKeys = {}
 local function onKeyDown(Plr,Mouse,Target,key)
 if Plr ~= Player then return end
 heldKeys[key] = true
-if key == " " then
+if key == "mouseLeft" then
 if debounce then return end
 alpha = 0.3
 targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
