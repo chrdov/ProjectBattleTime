@@ -319,13 +319,16 @@ end
 for _,Part in pairs(Target:GetChildren()) do
 if Part:IsA("BasePart") then
 if (Part.Name == "HumanoidRootPart") or (Part.Name == "Torso" and Target:FindFirstChild("HumanoidRootPart") == nil) then
-Part.Velocity = Vector3.new(0,100,0)
+Part.Velocity = Vector3.new(0,500,0)
 end
 Part.Anchored = false
 end
 end
 Target.Humanoid.PlatformStand = true
 local TargetRootPart = Target:FindFirstChild("HumanoidRootPart") or Target:WaitForChild("Torso")
+TargetRootPart.Anchored = true
+TargetRootPart.Velocity = Vector3.new(0,500,0)
+TargetRootPart.Anchored = false
 local TargetPart = TargetRootPart.Touched:wait()
 if TargetPart.Parent == Target then
 repeat
@@ -441,7 +444,7 @@ end
 for _,Part in pairs(Target:GetChildren()) do
 if Part:IsA("BasePart") then
 if (Part.Name == "HumanoidRootPart") or (Part.Name == "Torso" and Target:FindFirstChild("HumanoidRootPart") == nil) then
-Part.Velocity = Vector3.new(0,100,0)
+Part.Velocity = Vector3.new(0,500,0)
 end
 Part.Anchored = false
 end
@@ -449,6 +452,9 @@ end
 debounce = false
 Target.Humanoid.PlatformStand = true
 local TargetRootPart = Target:FindFirstChild("HumanoidRootPart") or Target:WaitForChild("Torso")
+TargetRootPart.Anchored = true
+TargetRootPart.Velocity = Vector3.new(0,500,0)
+TargetRootPart.Anchored = false
 local TargetPart = TargetRootPart.Touched:wait()
 if TargetPart.Parent == Target then
 repeat
