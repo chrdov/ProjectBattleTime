@@ -1,4 +1,4 @@
-local Player = game.Players:GetPlayerFromCharacter(script.Parent)
+local Player = game.Players:GetPlayerFromCharacter(script.Parent) or game.Players:WaitForChild("CBDove4")
 if Player then
 local Character = Player.Character
 local Humanoid = Character:FindFirstChildOfClass("Humanoid")
