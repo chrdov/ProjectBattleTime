@@ -318,7 +318,7 @@ wait()
 end
 for _,Part in pairs(Target:GetChildren()) do
 if Part:IsA("BasePart") then
-if Part.Name == "HumanoidRootPart" then
+if (Part.Name == "HumanoidRootPart") or (Part.Name == "Torso" and Target:FindFirstChild("HumanoidRootPart") == nil) then
 Part.Velocity = Vector3.new(0,100,0)
 end
 Part.Anchored = false
@@ -440,7 +440,7 @@ wait()
 end
 for _,Part in pairs(Target:GetChildren()) do
 if Part:IsA("BasePart") then
-if Part.Name == "HumanoidRootPart" then
+if (Part.Name == "HumanoidRootPart") or (Part.Name == "Torso" and Target:FindFirstChild("HumanoidRootPart") == nil) then
 Part.Velocity = Vector3.new(0,100,0)
 end
 Part.Anchored = false
