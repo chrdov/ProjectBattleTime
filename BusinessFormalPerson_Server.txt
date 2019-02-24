@@ -325,10 +325,11 @@ Part.Anchored = false
 end
 end
 Target.Humanoid.PlatformStand = true
-local TargetPart = Target.HumanoidRootPart.Touched:wait()
+local TargetRootPart = Target:FindFirstChild("HumanoidRootPart") or Target:WaitForChild("Torso")
+local TargetPart = TargetRootPart.Touched:wait()
 if TargetPart.Parent == Target then
 repeat
-TargetPart = Target.HumanoidRootPart.Touched:wait()
+TargetPart = TargetRootPart.Touched:wait()
 until TargetPart.Parent ~= Target 
 end
 Target:BreakJoints()
@@ -447,10 +448,11 @@ end
 end
 debounce = false
 Target.Humanoid.PlatformStand = true
-local TargetPart = Target.HumanoidRootPart.Touched:wait()
+local TargetRootPart = Target:FindFirstChild("HumanoidRootPart") or Target:WaitForChild("Torso")
+local TargetPart = TargetRootPart.Touched:wait()
 if TargetPart.Parent == Target then
 repeat
-TargetPart = Target.HumanoidRootPart.Touched:wait()
+TargetPart = TargetRootPart.Touched:wait()
 until TargetPart.Parent ~= Target 
 end
 Target:BreakJoints()
