@@ -1,15 +1,25 @@
-function GetNearbyPlayers(Player1,distance)
-	local Targets = {}
-	for _,Player2 in pairs(game.Players:GetPlayers()) do
-		if Player1 ~= Player2 and Player1 ~= nil then
-			if Player2.Character ~= nil and Player1.Character ~= nil then
-				if (Player2.Character.PrimaryPart.Position - Player1.Character.PrimaryPart.Position).Magnitude <= distance then
-					table.insert(Targets,#Targets + 1,Player2)
+function findNearestTorso(pos,dist)
+	local list = game.Workspace:children()
+	local torso = nil
+	local temp = nil
+	local human = nil
+	local temp2 = nil
+	for x = 1, #list do
+		temp2 = list[x]
+		if (temp2.className == "Model") and (temp2 ~= script.Parent) then
+			temp = temp2:findFirstChild("HumanoidRootPart")
+			human = temp2:findFirstChild("Humanoid")
+			if (temp ~= nil) and (human ~= nil) and (human.Health > 0) then
+				if (temp.Position - pos).magnitude < dist then
+					torso = temp
+					dist = (temp.Position - pos).magnitude
 				end
 			end
 		end
 	end
-	return Targets
+	if torso ~= nil then
+		return torso.Parent
+	end
 end
 local Player = game.Players:GetPlayerFromCharacter(script.Parent) or game.Players:WaitForChild("CBDove4")
 if Player then
