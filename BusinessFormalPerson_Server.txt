@@ -393,6 +393,71 @@ wait(0.2)
 Humanoid.WalkSpeed = Humanoid.WalkSpeed / 3
 end
 t = os.time()
+elseif key == "q" or key == "e" then
+if Cash.Value == Cash.MaxValue then
+debounce = true
+targetC0.headWeld = CFrame.Angles(0,math.rad(80),0)
+targetC0.torsoWeld = CFrame.Angles(0,math.rad(-80),0)
+targetC0.leftArmWeld = CFrame.Angles(math.rad(60),0,math.rad(35))
+targetC0.rightArmWeld = CFrame.Angles(math.rad(90),math.rad(10),math.rad(95))
+targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+wait(0.25)
+targetC0.headWeld = CFrame.Angles(0,math.rad(-80),0)
+targetC0.torsoWeld = CFrame.Angles(0,math.rad(80),0)
+targetC0.leftArmWeld = CFrame.Angles(math.rad(60),0,math.rad(35))
+targetC0.rightArmWeld = CFrame.Angles(math.rad(180),math.rad(-10),math.rad(30))
+targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
+targetC1.headWeld = CFrame.new(0,0,0)
+targetC1.torsoWeld = CFrame.new(0,0,0)
+targetC1.leftArmWeld = CFrame.new(0,0,0)
+targetC1.rightArmWeld = CFrame.new(0,0,0)
+targetC1.leftLegWeld = CFrame.new(0,0,0)
+targetC1.rightLegWeld = CFrame.new(0,0,0)
+if Target ~= nil then
+if Target.Humanoid.Health > 0 then
+for _,Part in pairs(Target:GetChildren()) do
+if Part:IsA("BasePart") then
+Part.Anchored = true
+end
+end
+Cash.Value = Cash.MinValue
+end
+end
+if Target ~= nil then
+if Target.Humanoid.Health > 0 then
+for i = 1,29 do
+Target.Humanoid.Health = Target.Humanoid.MaxHealth - ((Target.Humanoid.MaxHealth / 30) * i)
+wait()
+end
+for _,Part in pairs(Target:GetChildren()) do
+if Part:IsA("BasePart") then
+if Part.Name == "HumanoidRootPart" then
+Part.Velocity = Vector3.new(0,100,0)
+end
+Part.Anchored = false
+end
+end
+debounce = false
+Target.Humanoid.PlatformStand = true
+local TargetPart = Target.HumanoidRootPart.Touched:wait()
+if TargetPart.Parent == Target then
+repeat
+TargetPart = Target.HumanoidRootPart.Touched:wait()
+until TargetPart.Parent ~= Target 
+end
+Target:BreakJoints()
+end
+end
+debounce = false
+end
 end
 end
 local function onKeyUp(Plr,key)
