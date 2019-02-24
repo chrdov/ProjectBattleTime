@@ -27,7 +27,7 @@ end
 local Cash = Instance.new("DoubleConstrainedValue",Character)
 Cash.Name = "Cash"
 Cash.MinValue = 0
-Cash.MaxValue = 900
+Cash.MaxValue = 1000
 Cash.Changed:connect(function()
 	print((Player.Name).."'s "..(Cash.Name)..": "..(Cash.Value))
 end)
@@ -236,11 +236,30 @@ targetC1.leftArmWeld = CFrame.new(0,0,0)
 targetC1.rightArmWeld = CFrame.new(0,0,0)
 Humanoid.WalkSpeed = Humanoid.WalkSpeed / 16
 local Counter = 0
+for i = 1,15 do
+newHealth = Humanoid.Health
+damage = oldHealth - newHealth
+if Counter > 0 then
+Counter = Counter - 1
+end
+if Counter < 0 then
+Counter = 0
+end
+if damage > 0 then
+Counter = 10
+break
+end
+wait()
+oldHealth = Humanoid.Health
+end
 repeat
 newHealth = Humanoid.Health
 damage = oldHealth - newHealth
 if Counter > 0 then
 Counter = Counter - 1
+end
+if Counter < 0 then
+Counter = 0
 end
 if damage > 0 then
 Counter = 10
@@ -248,11 +267,14 @@ end
 wait()
 oldHealth = Humanoid.Health
 until not heldKeys[key]
+Target = findNearestTorso(Character.HumanoidRootPart.Position,5)
+if Target ~= nil then
+if Target.Humanoid.Health > 0 then
+Target.Humanoid.WalkSpeed = 0
+Target.Humanoid.JumpPower = 0
+end
+end
 if Counter > 0 then
-wait(0.05)
-Humanoid.WalkSpeed = Humanoid.WalkSpeed * 16
-Humanoid.Health = Humanoid.Health / 5
-Humanoid.MaxHealth = Humanoid.MaxHealth / 5
 targetC0.headWeld = CFrame.Angles(0,math.rad(80),0)
 targetC0.torsoWeld = CFrame.Angles(0,math.rad(-80),0)
 targetC0.leftArmWeld = CFrame.Angles(math.rad(60),0,math.rad(35))
@@ -265,7 +287,7 @@ targetC1.leftArmWeld = CFrame.new(0,0,0)
 targetC1.rightArmWeld = CFrame.new(0,0,0)
 targetC1.leftLegWeld = CFrame.new(0,0,0)
 targetC1.rightLegWeld = CFrame.new(0,0,0)
-wait(0.2)
+wait(0.25)
 targetC0.headWeld = CFrame.Angles(0,math.rad(-80),0)
 targetC0.torsoWeld = CFrame.Angles(0,math.rad(80),0)
 targetC0.leftArmWeld = CFrame.Angles(math.rad(60),0,math.rad(35))
@@ -280,42 +302,56 @@ targetC1.leftLegWeld = CFrame.new(0,0,0)
 targetC1.rightLegWeld = CFrame.new(0,0,0)
 if Target ~= nil then
 if Target.Humanoid.Health > 0 then
-Target:BreakJoints()
+for _,Part in pairs(Target:GetChildren()) do
+if Part:IsA("BasePart") then
+Part.Anchored = true
+end
+end
 Cash.Value = Cash.MinValue
 end
 end
-wait(0.25)
-targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
-targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
-targetC1.leftLegWeld = CFrame.new(0,0,0)
-targetC1.rightLegWeld = CFrame.new(0,0,0)
-targetC0.headWeld = CFrame.Angles(0,math.rad(45),0)
-targetC0.torsoWeld = CFrame.Angles(0,math.rad(-45),0)
-targetC0.leftArmWeld = CFrame.Angles(math.rad(120),0,math.rad(30))
-targetC0.rightArmWeld = CFrame.Angles(math.rad(60),0,math.rad(-30))
-targetC1.headWeld = CFrame.new(0,0,0)
-targetC1.torsoWeld = CFrame.new(0,0,0)
-targetC1.leftArmWeld = CFrame.new(0,0,0)
-targetC1.rightArmWeld = CFrame.new(0,0,0)
+if Target ~= nil then
+if Target.Humanoid.Health > 0 then
+for i = 1,29 do
+Target.Humanoid.Health = Target.Humanoid.MaxHealth - ((Target.Humanoid.MaxHealth / 30) * i)
+wait()
+end
+for _,Part in pairs(Target:GetChildren()) do
+if Part:IsA("BasePart") then
+if Part.Name == "HumanoidRootPart" then
+Part.Velocity = Vector3.new(0,100,0)
+end
+Part.Anchored = false
+end
+end
+Target.Humanoid.PlatformStand = true
+local TargetPart = Target.HumanoidRootPart.Touched:wait()
+if TargetPart.Parent == Target then
+repeat
+TargetPart = Target.HumanoidRootPart.Touched:wait()
+until TargetPart.Parent ~= Target 
+end
+Target:BreakJoints()
+end
+end
 else
-wait(0.25)
 targetC0.leftLegWeld = CFrame.Angles(0,0,math.rad(-10))
 targetC0.rightLegWeld = CFrame.Angles(0,0,math.rad(10))
 targetC1.leftLegWeld = CFrame.new(0,0,0)
 targetC1.rightLegWeld = CFrame.new(0,0,0)
-targetC0.headWeld = CFrame.Angles(0,math.rad(45),0)
-targetC0.torsoWeld = CFrame.Angles(0,math.rad(-45),0)
-targetC0.leftArmWeld = CFrame.Angles(math.rad(120),0,math.rad(30))
-targetC0.rightArmWeld = CFrame.Angles(math.rad(60),0,math.rad(-30))
+targetC0.headWeld = CFrame.Angles(0,0,0)
+targetC0.torsoWeld = CFrame.Angles(0,0,0)
+targetC0.leftArmWeld = CFrame.Angles(0,0,math.rad(-10))
+targetC0.rightArmWeld = CFrame.Angles(0,0,math.rad(10))
 targetC1.headWeld = CFrame.new(0,0,0)
 targetC1.torsoWeld = CFrame.new(0,0,0)
 targetC1.leftArmWeld = CFrame.new(0,0,0)
 targetC1.rightArmWeld = CFrame.new(0,0,0)
-wait(0.25)
+wait(1)
+end
 Humanoid.WalkSpeed = Humanoid.WalkSpeed * 16
 Humanoid.Health = Humanoid.Health / 5
 Humanoid.MaxHealth = Humanoid.MaxHealth / 5
-end
 debounce = false
 elseif key == " " and Cash.Value < Cash.MaxValue then
 debounce = true
