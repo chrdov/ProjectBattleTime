@@ -313,10 +313,7 @@ end
 end
 if Target ~= nil then
 if Target.Humanoid.Health > 0 then
-for i = 1,29 do
-Target.Humanoid.Health = Target.Humanoid.MaxHealth - ((Target.Humanoid.MaxHealth / 30) * i)
-wait()
-end
+wait(0.5)
 for _,Part in pairs(Target:GetChildren()) do
 if Part:IsA("BasePart") then
 if (Part.Name == "HumanoidRootPart") or (Part.Name == "Torso" and Target:FindFirstChild("HumanoidRootPart") == nil) then
@@ -438,10 +435,7 @@ end
 end
 if Target ~= nil then
 if Target.Humanoid.Health > 0 then
-for i = 1,29 do
-Target.Humanoid.Health = Target.Humanoid.MaxHealth - ((Target.Humanoid.MaxHealth / 30) * i)
-wait()
-end
+wait(0.5)
 for _,Part in pairs(Target:GetChildren()) do
 if Part:IsA("BasePart") then
 if (Part.Name == "HumanoidRootPart") or (Part.Name == "Torso" and Target:FindFirstChild("HumanoidRootPart") == nil) then
