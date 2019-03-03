@@ -206,7 +206,7 @@ if TargetHumanoid.Health > 0 then
 spawn(function()
 for x = 1,10 do
 TargetHumanoid.Health = TargetHumanoid.Health - (damage / 10)
-wait((damage/5)/10)
+wait((damage/5)/20)
 end
 end)
 end
@@ -221,8 +221,10 @@ CharClrs[Part.Name] = Part.Color
 Part.Color = Clr
 end
 end
-if clrNumber == 5 or clrNumber == 6 or clrNumber == 7 then
+if clrNumber == 5 or clrNumber == 6 then
 wait(damage/5)
+elseif clrNumber == 7 then
+wait((damage/5)/2)
 else
 wait(0.125)
 end
