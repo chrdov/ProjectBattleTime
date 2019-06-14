@@ -31,7 +31,7 @@ Cash.MaxValue = 1000
 Cash.Changed:connect(function()
 	print((Player.Name).."'s "..(Cash.Name)..": "..(Cash.Value))
 end)
-Cash.Value = Cash.MaxValue
+Cash.Value = Cash.MinValue
 local Humanoid = Character:FindFirstChildOfClass("Humanoid")
 local Shirt = Character:FindFirstChildOfClass("Shirt") or Instance.new("Shirt",Character)
 local Pants = Character:FindFirstChildOfClass("Pants") or Instance.new("Pants",Character)
