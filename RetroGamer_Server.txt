@@ -611,7 +611,6 @@ targetC1.torsoWeld = CFrame.new(0,0,0)
 targetC1.leftArmWeld = CFrame.new(0,0,0)
 targetC1.rightArmWeld = CFrame.new(0,0,0)
 end
-end
 wait(1/20)
 end
 end)
