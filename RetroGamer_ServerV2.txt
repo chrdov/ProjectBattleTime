@@ -613,5 +613,5 @@ targetC1.rightArmWeld = CFrame.new(0,0,0)
 end
 wait(1/20)
 end
-end)
 end
+end)
