@@ -1,4 +1,4 @@
-# ProjectBattleTime
+# Project: Battle Time
 "Project: Battle Time" is CBDove4's class-based fighting game. 
 
 There are a few planned classes for this game:
