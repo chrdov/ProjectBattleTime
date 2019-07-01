@@ -323,6 +323,7 @@ debounce = false
 end
 end
 end
+end
 local function onKeyUp(Plr,key)
 if Plr ~= Player then return end
 heldKeys[key] = nil
