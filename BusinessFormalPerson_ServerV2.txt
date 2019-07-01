@@ -161,7 +161,6 @@ targetC1.rightArmWeld = CFrame.new(0,0,0)
 targetC1.leftLegWeld = CFrame.new(0,0,0)
 targetC1.rightLegWeld = CFrame.new(0,0,0)
 if Target ~= nil then
-if Target.Humanoid.Health > 0 then
 Target.Humanoid:TakeDamage(10)
 Cash.Value = Cash.Value + 100
 end
@@ -334,6 +333,8 @@ KeyDown.OnServerEvent:connect(onKeyDown)
 local KeyUp = Instance.new("RemoteEvent",Character)
 KeyUp.Name = "KeyUp"
 KeyUp.OnServerEvent:connect(onKeyUp)
+Humanoid.MaxHealth = 1000
+Humanoid.Health = Humanoid.MaxHealth
 spawn(function()
 while Humanoid.Health > 0 do
 for k,_ in pairs(welds) do
